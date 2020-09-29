@@ -19,9 +19,9 @@
 <script id="hexo-configurations">
   var NexT = window.NexT || {};
   var CONFIG = {
-    hostname: new URL('https://www.kawafun.work').hostname,
+    hostname: new URL('https://cloudbce.com').hostname,
     root: '/',
-    scheme: 'Muse',
+    scheme: 'Pisces',
     version: '7.6.0',
     exturl: false,
     sidebar: {"position":"left","display":"post","padding":18,"offset":12,"onmobile":false},
@@ -48,7 +48,7 @@
   <meta name="description" content="LeetCode有位老哥对动态规划的各种题目做了归纳总结: https:&#x2F;&#x2F;leetcode.com&#x2F;discuss&#x2F;general-discussion&#x2F;458695&#x2F;dynamic-programming-patterns写的非常好。  本文以记录下曾今面试时遇到的但是暴力破解的方式求解并不优美的方式破解的。  最长公共子序列递推公式。 2个字符串， 得要有二维的数组存储最值。dp[i][j]">
 <meta property="og:type" content="article">
 <meta property="og:title" content="lcs">
-<meta property="og:url" content="https://www.kawafun.work/2020/01/20/lcs/index.html">
+<meta property="og:url" content="https://cloudbce.com/2020/01/20/lcs/index.html">
 <meta property="og:site_name" content="悟已往之不谏 知来者之可追">
 <meta property="og:description" content="LeetCode有位老哥对动态规划的各种题目做了归纳总结: https:&#x2F;&#x2F;leetcode.com&#x2F;discuss&#x2F;general-discussion&#x2F;458695&#x2F;dynamic-programming-patterns写的非常好。  本文以记录下曾今面试时遇到的但是暴力破解的方式求解并不优美的方式破解的。  最长公共子序列递推公式。 2个字符串， 得要有二维的数组存储最值。dp[i][j]">
 <meta property="og:locale" content="en_US">
@@ -57,7 +57,7 @@
 <meta property="article:author" content="Wang Yian">
 <meta name="twitter:card" content="summary">
 
-<link rel="canonical" href="https://www.kawafun.work/2020/01/20/lcs/">
+<link rel="canonical" href="https://cloudbce.com/2020/01/20/lcs/">
 
 
 <script id="page-configurations">
@@ -139,6 +139,16 @@
     <a href="/" rel="section"><i class="fa fa-fw fa-home"></i>Home</a>
 
   </li>
+        <li class="menu-item menu-item-tags">
+
+    <a href="/tags/" rel="section"><i class="fa fa-fw fa-tags"></i>Tags</a>
+
+  </li>
+        <li class="menu-item menu-item-categories">
+
+    <a href="/categories/" rel="section"><i class="fa fa-fw fa-th"></i>Categories</a>
+
+  </li>
         <li class="menu-item menu-item-archives">
 
     <a href="/archives/" rel="section"><i class="fa fa-fw fa-archive"></i>Archives</a>
@@ -170,7 +180,7 @@
   
   
   <article itemscope itemtype="http://schema.org/Article" class="post-block " lang="en">
-    <link itemprop="mainEntityOfPage" href="https://www.kawafun.work/2020/01/20/lcs/">
+    <link itemprop="mainEntityOfPage" href="https://cloudbce.com/2020/01/20/lcs/">
 
     <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
       <meta itemprop="image" content="/images/avatar.gif">
@@ -182,9 +192,9 @@
       <meta itemprop="name" content="悟已往之不谏 知来者之可追">
     </span>
       <header class="post-header">
-        <h1 class="post-title" itemprop="name headline">
+        <h2 class="post-title" itemprop="name headline">
           lcs
-        </h1>
+        </h2>
 
         <div class="post-meta">
             <span class="post-meta-item">
@@ -242,8 +252,8 @@
       <i class="fa fa-chevron-left"></i> sliding_window
     </a></div>
       <div class="post-nav-item">
-    <a href="/2020/01/24/sp/" rel="next" title="sp">
-      sp <i class="fa fa-chevron-right"></i>
+    <a href="/2020/02/09/graph/" rel="next" title="graph">
+      graph <i class="fa fa-chevron-right"></i>
     </a></div>
     </div>
       </footer>
@@ -296,19 +306,27 @@
       <div class="site-state-item site-state-posts">
           <a href="/archives/">
         
-          <span class="site-state-item-count">8</span>
+          <span class="site-state-item-count">6</span>
           <span class="site-state-item-name">posts</span>
         </a>
       </div>
+      <div class="site-state-item site-state-categories">
+            <a href="/categories/">
+          
+        <span class="site-state-item-count">1</span>
+        <span class="site-state-item-name">categories</span></a>
+      </div>
       <div class="site-state-item site-state-tags">
-        <span class="site-state-item-count">2</span>
-        <span class="site-state-item-name">tags</span>
+            <a href="/tags/">
+          
+        <span class="site-state-item-count">3</span>
+        <span class="site-state-item-name">tags</span></a>
       </div>
   </nav>
 </div>
   <div class="links-of-author motion-element">
       <span class="links-of-author-item">
-        <a href="https://github.com/NedyWang" title="GitHub → https:&#x2F;&#x2F;github.com&#x2F;NedyWang" rel="noopener" target="_blank"><i class="fa fa-fw fa-github"></i>GitHub</a>
+        <a href="https://github.com/pianzhoujun" title="GitHub → https:&#x2F;&#x2F;github.com&#x2F;pianzhoujun" rel="noopener" target="_blank"><i class="fa fa-fw fa-github"></i>GitHub</a>
       </span>
   </div>
 
@@ -340,7 +358,7 @@
   <div class="powered-by">Powered by <a href="https://hexo.io/" class="theme-link" rel="noopener" target="_blank">Hexo</a> v5.2.0
   </div>
   <span class="post-meta-divider">|</span>
-  <div class="theme-info">Theme – <a href="https://muse.theme-next.org/" class="theme-link" rel="noopener" target="_blank">NexT.Muse</a> v7.6.0
+  <div class="theme-info">Theme – <a href="https://pisces.theme-next.org/" class="theme-link" rel="noopener" target="_blank">NexT.Pisces</a> v7.6.0
   </div>
 
         
@@ -387,7 +405,7 @@
 <script src="/js/motion.js"></script>
 
 
-<script src="/js/schemes/muse.js"></script>
+<script src="/js/schemes/pisces.js"></script>
 
 
 <script src="/js/next-boot.js"></script>
@@ -396,6 +414,15 @@
 
 
   
+  <script>
+    (function(){
+      var bp = document.createElement('script');
+      var curProtocol = window.location.protocol.split(':')[0];
+      bp.src = (curProtocol === 'https') ? 'https://zz.bdstatic.com/linksubmit/push.js' : 'http://push.zhanzhang.baidu.com/push.js';
+      var s = document.getElementsByTagName("script")[0];
+      s.parentNode.insertBefore(bp, s);
+    })();
+  </script>
 
 
 
