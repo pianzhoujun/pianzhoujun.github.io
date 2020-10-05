@@ -207,7 +207,7 @@
                   <i class="fa fa-calendar-check-o"></i>
                 </span>
                 <span class="post-meta-item-text">Edited on</span>
-                <time title="Modified: 2020-09-30 14:29:41" itemprop="dateModified" datetime="2020-09-30T14:29:41+08:00">2020-09-30</time>
+                <time title="Modified: 2020-10-05 09:46:30" itemprop="dateModified" datetime="2020-10-05T09:46:30+08:00">2020-10-05</time>
               </span>
 
           
@@ -256,11 +256,7 @@
 <p>关键帧的周期，也就是两个I帧之间的距离，一个帧组的最大帧数。增加关键帧个数可改善质量，但是同时增加带宽和网络负载。</p>
 <p>需要说明的是，通过提高GOP值来提高图像质量是有限度的，在遇到场景切换的情况时，H.264编码器会自动强制插入一个I帧，此时实际的GOP值被缩短了。另一方面，在一个GOP中，P、B帧是由I帧预测得到的，当I帧的图像质量比较差时，会影响到一个GOP中后续P、B帧的图像质量，直到下一个GOP开始才有可能得以恢复，所以GOP值也不宜设置过大。</p>
 <p>同时，由于P、B帧的复杂度大于I帧，所以过多的P、B帧会影响编码效率，使编码效率降低。另外，过长的GOP还会影响Seek操作的响应速度，由于P、B帧是由前面的I或P帧预测得到的，所以Seek操作需要直接定位，解码某一个P或B帧时，需要先解码得到本GOP内的I帧及之前的N个预测帧才可以，GOP值越长，需要解码的预测帧就越多，seek响应的时间也越长。</p>
-<h3 id="码率"><a href="#码率" class="headerlink" title="码率"></a>码率</h3><p>码率=采样率 x 位深度 x 声道<br><a target="_blank" rel="noopener" href="https://blog.csdn.net/pc9319/article/details/79621352">https://blog.csdn.net/pc9319/article/details/79621352</a></p>
-<p>采样频率，也称为采样速度或者采样率，定义了每秒从连续信号中提取并组成离散信号的采样个数，它用赫兹（Hz）来表示。采样频率的倒数是采样周期或者叫作采样时间，它是采样之间的时间间隔。通俗的讲采样频率是指计算机每秒钟采集多少个信号 样本。<br><a target="_blank" rel="noopener" href="https://baike.baidu.com/item/%E9%87%87%E6%A0%B7%E9%A2%91%E7%8E%87/1494233?fromtitle=%E9%87%87%E6%A0%B7%E7%8E%87&amp;fromid=972301&amp;fr=aladdin">https://baike.baidu.com/item/%E9%87%87%E6%A0%B7%E9%A2%91%E7%8E%87/1494233?fromtitle=%E9%87%87%E6%A0%B7%E7%8E%87&amp;fromid=972301&amp;fr=aladdin</a></p>
-<p>RMVB视频文件为例，RMVB中的VB，指的是VBR，即Variable BitRate的缩写，中文含义是可变比特率，它表示RMVB采用的是动态编码的方式，把较高的采样率用于复杂的动态画面(歌舞、飞车、战争、动作等)，而把较低的采样率用于静态画面，合理利用资源，达到画质与体积可兼得的效果。</p>
-<h3 id="常见编码模式"><a href="#常见编码模式" class="headerlink" title="常见编码模式"></a>常见编码模式</h3><p>VBR（Variable Bitrate）动态比特率也就是没有固定的比特率，压缩软件在压缩时根据音频数据即时确定使用什么比特率，这是以质量为前提兼顾文件大小的方式，推荐编码模式；<br>ABR（Average Bitrate）平均比特率是VBR的一种插值参数。LAME针对CBR不佳的文件体积比和VBR生成文件大小不定的特点独创了这种编码模式。ABR在指定的文件大小内，以每50帧（30帧约1秒）为一段，低频和不敏感频率使用相对低的流量，高频和大动态表现时使用高流量，可以做为VBR和CBR的一种折衷选择。<br>CBR（Constant Bitrate）常数比特率指文件从头到尾都是一种位速率。相对于VBR和ABR来讲，它压缩出来的文件体积很大，而且音质相对于VBR和ABR不会有明显的提高。</p>
-<h2 id="直播协议"><a href="#直播协议" class="headerlink" title="直播协议"></a>直播协议</h2><h2 id="FFMPEG"><a href="#FFMPEG" class="headerlink" title="FFMPEG"></a>FFMPEG</h2><h2 id="TBD"><a href="#TBD" class="headerlink" title="TBD"></a>TBD</h2>
+<h3 id="码率"><a href="#码率" class="headerlink" title="码率"></a>码率</h3><h2 id="直播协议"><a href="#直播协议" class="headerlink" title="直播协议"></a>直播协议</h2><h2 id="FFMPEG"><a href="#FFMPEG" class="headerlink" title="FFMPEG"></a>FFMPEG</h2><h2 id="TBD"><a href="#TBD" class="headerlink" title="TBD"></a>TBD</h2>
       
     </div>
 
