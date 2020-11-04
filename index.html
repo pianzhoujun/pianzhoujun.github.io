@@ -207,7 +207,7 @@
                   <i class="fa fa-calendar-check-o"></i>
                 </span>
                 <span class="post-meta-item-text">Edited on</span>
-                <time title="Modified: 2020-11-04 10:57:46" itemprop="dateModified" datetime="2020-11-04T10:57:46+08:00">2020-11-04</time>
+                <time title="Modified: 2020-11-04 11:01:09" itemprop="dateModified" datetime="2020-11-04T11:01:09+08:00">2020-11-04</time>
               </span>
 
           
@@ -228,7 +228,7 @@
 <p>RTMP属于应用层协议，不过开始传输之前先要握手， 看抓包过程知识确认了下版本号:</p>
 <figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">C        ---------------        S</span><br><span class="line">c0 + c1  --------------&gt; </span><br><span class="line">         &lt;--------------  s0 + s1 + s2  and version</span><br><span class="line">c2       --------------&gt;  &#x2F;&#x2F; handshark done</span><br></pre></td></tr></table></figure>
 
-<p><img src="imags/rtmp-connect.png"></img></p>
+<p><img src="/images/rtmp-connect.png"></img></p>
 <p>握手完，开始发消息(Message)，消息应该也是分控制消息和实际数据消息.</p>
 <figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line">C             ---------------        S</span><br><span class="line">connect(wgs)  --------------&gt; &#x2F;&#x2F; wgs是app的名， RTMP消息也分为Header\Body， 其中Header里面有消息ID， 不过AMF0是什么意思？</span><br><span class="line">              &lt;--------------       set AcknowagementSize</span><br><span class="line">              &lt;--------------       set Peer Bandwidth &amp; Chunk Size</span><br><span class="line">releaseStream --------------&gt;</span><br><span class="line">FCPublish     --------------&gt; &#x2F;&#x2F; 因为是要推流，因此是Publish指令</span><br></pre></td></tr></table></figure>
 
