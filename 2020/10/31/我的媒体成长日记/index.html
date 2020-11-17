@@ -54,7 +54,7 @@
 <meta property="og:locale" content="en_US">
 <meta property="og:image" content="https://cloudbce.com/images/rtmp-connect.png">
 <meta property="article:published_time" content="2020-10-31T02:45:51.000Z">
-<meta property="article:modified_time" content="2020-11-17T13:03:16.828Z">
+<meta property="article:modified_time" content="2020-11-17T13:04:20.606Z">
 <meta property="article:author" content="Wang Yian">
 <meta property="article:tag" content="Media">
 <meta name="twitter:card" content="summary">
@@ -213,7 +213,7 @@
                   <i class="fa fa-calendar-check-o"></i>
                 </span>
                 <span class="post-meta-item-text">Edited on</span>
-                <time title="Modified: 2020-11-17 21:03:16" itemprop="dateModified" datetime="2020-11-17T21:03:16+08:00">2020-11-17</time>
+                <time title="Modified: 2020-11-17 21:04:20" itemprop="dateModified" datetime="2020-11-17T21:04:20+08:00">2020-11-17</time>
               </span>
 
           
@@ -240,6 +240,7 @@
 <figure class="highlight c"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">#<span class="meta-keyword">include</span> <span class="meta-string">&lt;stdio.h&gt;</span></span></span><br><span class="line"><span class="meta">#<span class="meta-keyword">include</span> <span class="meta-string">&lt;stdlib.h&gt;</span></span></span><br><span class="line"><span class="meta">#<span class="meta-keyword">include</span> <span class="meta-string">&lt;setjmp.h&gt;</span></span></span><br><span class="line"></span><br><span class="line">jmp_buf env;</span><br><span class="line"></span><br><span class="line"><span class="function"><span class="keyword">int</span> <span class="title">my_func</span><span class="params">(<span class="keyword">int</span> a, <span class="keyword">int</span> b)</span> </span>&#123;</span><br><span class="line">    <span class="keyword">if</span> (b == <span class="number">0</span>) &#123;</span><br><span class="line">        <span class="built_in">printf</span>(<span class="string">&quot;do not allow division by 0\n&quot;</span>);</span><br><span class="line">        longjmp(env, <span class="number">1</span>); <span class="comment">// 将env设置为1， 跳转到setjmp的地方</span></span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    <span class="keyword">return</span> a / b;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="function"><span class="keyword">int</span> <span class="title">main</span><span class="params">(<span class="keyword">int</span> argc, <span class="keyword">char</span> <span class="keyword">const</span> *argv[])</span> </span>&#123;</span><br><span class="line">    <span class="keyword">int</span> res = setjmp(env);  <span class="comment">// 保存上下文信息，res == 0, 进入my_func</span></span><br><span class="line"></span><br><span class="line">    <span class="keyword">if</span> (res == <span class="number">0</span>) &#123;</span><br><span class="line">        <span class="built_in">printf</span>(<span class="string">&quot;return from setjmp\n&quot;</span>);</span><br><span class="line">        my_func(<span class="number">10</span>, <span class="number">0</span>);</span><br><span class="line">    &#125; <span class="keyword">else</span> &#123; <span class="comment">//回来以后 res 是1</span></span><br><span class="line">        <span class="built_in">printf</span>(<span class="string">&quot;return from longjmp: %d\n&quot;</span>, res);</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    <span class="keyword">return</span> <span class="number">0</span>;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
 
 <p>吐槽:<br>srs的代码虽然是C++写的，但是代码风格实在不是c++。 srs的业务逻辑和st线程库是主要学习部分。</p>
+<hr>
 <h3 id="2020-11-12"><a href="#2020-11-12" class="headerlink" title="2020/11/12"></a>2020/11/12</h3><ul>
 <li>RTMP相比较http-flv更适合抓包调试， 因为wireshark支持RTMP内容解析， 而不支持HTTP-FLV内容解析。 wireshark分析rtmp的时候要注意， 需要配置下protocol-&gt;rmtp-&gt;port，如果媒体服务器不是标准的1935端口的话。 </li>
 <li>RTMP Command格式是Rtmp Header + Body。 Header指出 时间戳 + 流ID + Body Size + AMF版本，Body则是使用AMF格式存储的。 明天需要看下AMF格式。</li>
