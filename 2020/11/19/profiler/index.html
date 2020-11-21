@@ -53,7 +53,7 @@
 <meta property="og:description" content="gperftoolsgperftools 内存分析的有2个，heap-profiler和heap-check, heap-check内部实现使用的是heap-profiler。 gperftools需要安装:  libunwind libgperftools ghostscript graphviz  gcc&#x2F;g++编译的时候，链接:  -ltcmalloc -lprofiler。 profile">
 <meta property="og:locale" content="en_US">
 <meta property="article:published_time" content="2020-11-19T13:56:11.000Z">
-<meta property="article:modified_time" content="2020-11-19T14:36:01.343Z">
+<meta property="article:modified_time" content="2020-11-21T02:55:55.779Z">
 <meta property="article:author" content="Wang Yian">
 <meta property="article:tag" content="性能&#x2F;内存分析">
 <meta name="twitter:card" content="summary">
@@ -203,10 +203,16 @@
                 <i class="fa fa-calendar-o"></i>
               </span>
               <span class="post-meta-item-text">Posted on</span>
-              
 
-              <time title="Created: 2020-11-19 21:56:11 / Modified: 22:36:01" itemprop="dateCreated datePublished" datetime="2020-11-19T21:56:11+08:00">2020-11-19</time>
+              <time title="Created: 2020-11-19 21:56:11" itemprop="dateCreated datePublished" datetime="2020-11-19T21:56:11+08:00">2020-11-19</time>
             </span>
+              <span class="post-meta-item">
+                <span class="post-meta-item-icon">
+                  <i class="fa fa-calendar-check-o"></i>
+                </span>
+                <span class="post-meta-item-text">Edited on</span>
+                <time title="Modified: 2020-11-21 10:55:55" itemprop="dateModified" datetime="2020-11-21T10:55:55+08:00">2020-11-21</time>
+              </span>
 
           
             <span class="post-meta-item" title="Views" id="busuanzi_container_page_pv" style="display: none;">
@@ -238,7 +244,12 @@
 <p>gcc/g++编译的时候，链接:  -ltcmalloc -lprofiler。 profiler是基于tcmalloc实现的，因此tcmalloc是必须。</p>
 <a id="more"></a>
 
-<p>使用pprof进行分析，–text是使用文字显示， –pdf则是转为图输出到pdf，后者依赖dot(graphviz)。<br>pprof –text {bin} {}.prof<br>pprof –pdf {bin} {}.prof &gt; {}.pdf</p>
+<p>使用pprof进行分析，–text是使用文字显示， –pdf则是转为图输出到pdf，后者依赖dot(graphviz)。</p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">pprof --text <span class="variable">$bin</span> <span class="variable">$bin</span>.prof</span><br><span class="line">pprof --pdf <span class="variable">$bin</span> <span class="variable">$bin</span>.prof &gt; <span class="variable">$bin</span>.prof.pdf</span><br></pre></td></tr></table></figure>
+
+<p>另外可以使用base参数对两个heap进行对比</p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">pprof --text <span class="variable">$bin</span> --base <span class="variable">$heap1</span> <span class="variable">$heap2</span></span><br></pre></td></tr></table></figure>
+
 <p>在对heap进行profiler的时候，在程序里面写上： HeapProfilerStart, 服务程序则会定期的将profiler文件写到指定位置(HeapProfilerStart参数指定）。 </p>
 <blockquote>
 <p>Running the Code<br>There are several alternatives to actually turn on heap profiling for a given run of an executable:</p>
@@ -252,6 +263,15 @@
 
 <p><a target="_blank" rel="noopener" href="http://www.brendangregg.com/offcpuanalysis.html">off-cpu</a></p>
 <figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br></pre></td><td class="code"><pre><span class="line">pid=`ps -ef | &#123;进程名&#125; |awk &#x27;&#123;print $2&#125;&#x27;`</span><br><span class="line">echo &quot;pid: $pid&quot;</span><br><span class="line"></span><br><span class="line">echo &quot;record&quot;</span><br><span class="line">perf record -e sched:sched_stat_sleep -e sched:sched_switch -e sched:sched_process_exit -a -g -o perf.data.raw sleep 1</span><br><span class="line"></span><br><span class="line">echo &quot;inject&quot;</span><br><span class="line"></span><br><span class="line">perf inject -v -s -i perf.data.raw -o perf.data</span><br><span class="line"></span><br><span class="line">echo &quot;script&quot;</span><br><span class="line"></span><br><span class="line">perf script -F comm,pid,tid,cpu,time,period,event,ip,sym,dso,trace | awk &#x27;</span><br><span class="line">    NF &gt; 4 &#123; exec = $1; period_ms = int($5 / 1000000) &#125;</span><br><span class="line">    NF &gt; 1 &amp;&amp; NF &lt;= 4 &amp;&amp; period_ms &gt; 0 &#123; print $2 &#125;</span><br><span class="line">    NF &lt; 2 &amp;&amp; period_ms &gt; 0 &#123; printf &quot;%s\n%d\n\n&quot;, exec, period_ms &#125;&#x27; | /opt/FlameGraph/stackcollapse.pl | /opt/FlameGraph/flamegraph.pl --countname=ms --title=&quot;Off-CPU Time Flame Graph&quot; --colors=io &gt; offcpu.svg</span><br></pre></td></tr></table></figure>
+
+<h3 id="map-amp-mem"><a href="#map-amp-mem" class="headerlink" title="map&amp;mem"></a>map&amp;mem</h3><p><a target="_blank" rel="noopener" href="https://stackoverflow.com/questions/37587200/why-does-stdmap-stdmap-not-deallocate-memory/37588434">why map not dealloc memory</a></p>
+<blockquote>
+<p>the internal of std::map uses black/red tree to store objects, which contains many small object, but std::vector stores objects continuously, using a large flat memory block.</p>
+<p>glibc maintains different type of memory differently.</p>
+<p>When requesting small objects, usually memory pool is used to avoid external fragments, but will causing internal fragments when the object freed, and the internal fragments will never return to the system.</p>
+<p>When requesting large blocks, glibc alloc a large memory block, which may contains external fragments. but when freed, the memory will return to the system.</p>
+</blockquote>
+
     </div>
 
     
@@ -310,7 +330,7 @@
 
       <!--noindex-->
       <div class="post-toc-wrap sidebar-panel">
-          <div class="post-toc motion-element"><ol class="nav"><li class="nav-item nav-level-2"><a class="nav-link" href="#gperftools"><span class="nav-number">1.</span> <span class="nav-text">gperftools</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E7%81%AB%E7%84%B0%E5%9B%BE%F0%9F%94%A5"><span class="nav-number">2.</span> <span class="nav-text">火焰图🔥</span></a></li></ol></div>
+          <div class="post-toc motion-element"><ol class="nav"><li class="nav-item nav-level-2"><a class="nav-link" href="#gperftools"><span class="nav-number">1.</span> <span class="nav-text">gperftools</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E7%81%AB%E7%84%B0%E5%9B%BE%F0%9F%94%A5"><span class="nav-number">2.</span> <span class="nav-text">火焰图🔥</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#map-amp-mem"><span class="nav-number">2.1.</span> <span class="nav-text">map&amp;mem</span></a></li></ol></li></ol></div>
       </div>
       <!--/noindex-->
 
